@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ST98 Drone Build - Taka Tracker</title>
+    <style>
+        :root {
+            --bg-main: #0d1117;
+            --bg-card: #161b22;
+            --border: #30363d;
+            --text-main: #c9d1d9;
+            --text-muted: #8b949e;
+            --accent: #58a6ff;
+            --success: #238636;
+            --taka: #3fb950;
+        }
+        * { box-sizing: border-box; }
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.5;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .header {
+            background: linear-gradient(135deg, #1f242c, #0d1117);
+            border-bottom: 1px solid var(--border);
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.8em;
+            letter-spacing: 2px;
+            color: white;
+            text-shadow: 0 2px 10px rgba(88, 166, 255, 0.3);
+        }
+        .header p.note {
+            color: var(--accent);
+            font-size: 1.1em;
+            margin: 10px 0 20px 0;
+            font-style: italic;
+        }
+        .meta {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            color: var(--text-muted);
+            font-size: 0.9em;
+        }
+        .meta span {
+            background: rgba(255,255,255,0.05);
+            padding: 5px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+        .summary {
+            display: flex;
+            justify-content: space-around;
+            padding: 25px;
+            background-color: rgba(35, 134, 54, 0.1);
+            border-bottom: 1px solid var(--border);
+        }
+        .stat-box {
+            text-align: center;
+        }
+        .stat-box .value {
+            font-size: 2.2em;
+            font-weight: bold;
+            color: var(--taka);
+        }
+        .stat-box .label {
+            color: var(--text-muted);
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+            padding: 25px;
+        }
+        .card {
+            background-color: var(--bg-main);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent);
+        }
+        .card-tag {
+            font-size: 0.75em;
+            color: var(--accent);
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        .card-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: white;
+            margin: 0 0 12px 0;
+            display: flex;
+            align-items: center;
+        }
+        .checkbox {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--text-muted);
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        .card-details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+            color: var(--text-main);
+        }
+        .card-total {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed var(--border);
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            color: var(--taka);
+        }
+        .card-notes {
+            margin-top: 10px;
+            font-size: 0.85em;
+            color: #d2a8ff;
+            background: rgba(210, 168, 255, 0.1);
+            padding: 10px;
+            border-radius: 6px;
+            line-height: 1.4;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 0.85em;
+            border-top: 1px solid var(--border);
+            background-color: var(--bg-main);
+        }
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 PROJECT: ST98</h1>
+            <p class="note">"Let's make our life more efficient - with drones!"</p>
+            <div class="meta">
+                <span>🛒 TechshopBD</span>
+                <span>📅 May 16, 2026</span>
+            </div>
+        </div>
+        
+        <div class="summary">
+            <div class="stat-box">
+                <div class="value">৳4,812</div>
+                <div class="label">Grand Total</div>
+            </div>
+            <div class="stat-box">
+                <div class="value">14</div>
+                <div class="label">Components</div>
+            </div>
+        </div>
+
+        <div class="grid">
+            
+    <div class="card">
+        <div class="card-tag">[MAIN MICROCHIP]</div>
+        <h3 class="card-title"><span class="checkbox"></span>ESP32</h3>
+        <div class="card-details">
+            <span>Qty: 1</span>
+            <span>Unit: ৳485</span>
+        </div>
+        <div class="card-total">
+            <span>Total</span>
+            <span>৳485</span>
+        </div>
+        
+    </div>
+    
+    <div class="card">
+        <div class="card-tag">[GYROSCOPE]</div>
+        <h3 class="card-title"><span class="checkbox"></span>MPU-6050</h3>
+        <div class="card-details">
+            <span>Qty: 1</span>
+            <span>Unit: ৳292</span>
+        </div>
+        <div class="card-total">
+            <span>Total</span>
+            <span>৳292</span>
+        </div>
+        
+    </div>
+    
+    <div class="card">
+        <div class="card-tag">[ONE WAY FLOW]</div>
+        <h3 class="card-title"><span class="checkbox"></span>Diode</h3>
+        <div class="card-details">
+            <span>Qty: 4</span>
+            <span>Unit: ৳10</span>
+        </div>
+        <div class="card-total">
+            <span>Total</span>
+            <span>৳40</span>
+        </div>
+        
+    </div>
+    
+    <div class="card">
+        <div class="card-tag">[RESISTOR]</div>
+        <h3 class="card-title"><span class="checkbox"></span>10k Ohm Resistor</h3>
+        <div class="card-details">
+            <span>Qty: 4</span>
+            <span>Unit: ৳2</span>
+        </div>
+        <div class="card-total">
+            <span>Total</span>
+            <span>৳8</span>
+        </div>
+        
+    </div>
+    
+    <div class="card">
+        <div class="card-tag">[RESISTOR]</div>
+        <h3 class="card-title"><span class="checkbox"></span>100 Ohm Resistor</h3>
+        <div class="card-details">
+            <span>Qty: 4</span>
+            <span>Unit: ৳3</span>
+        </div>
+        <div class="card-total">
+            <span>Total</span>
+            <span>৳12</span>
+        </div>
+        
+    </div>
+    
+    <div class="card">
+        <div class="card-tag">[7.2V 2S]</div>
+        <h3 class="card-title"><span class="checkbox"></span>LiPo Battery</h3>
+        <div class="card-details">
+            <span>Qty: 1</span>
+            <span>Unit: ৳1,170</span>
+        </div>
+        <div class="card-total">
+            <span>Total</span>
+            <span>৳1,170</span>
+        </div>
+        
+    </div>
+    
+    <div class="card">
+        <div class="card-tag">[REGULATOR]</div>
+        <h3 class="card-title"><span class="checkbox"></span>5V Buck/Boost Voltage Regulator</h3>
+        <div class="card-details">
+            <span>Qty: 1</span>
+            <span>Unit: ৳20</span>
+        </div>
+        <div class="card-total">
+            <span>Total</span>
+            <span>৳20</span>
+        </div>
+        <div class="card-notes">💡 To step up 1S battery voltage or step down 2S battery voltage to cleanly power the ESP32</div>
+    </div>
+    
+    <div class="card">
+        <div class="card-tag">[CONNECTOR]</div>
+        <h3 class="card-title"><span class="checkbox"></span>JST Battery Connectors</h3>
+        <div class="card-details">
+            <span>Qty: 1</span>
+            <span>Unit: ৳25</span>
+        </div>
+        <div class="card-total">
+            <span>Total</span>
+            <span>৳25</span>
+        </div>
+        
+    </div>
+    
+    <div class="card">
+        <div class="card-tag">[MOTOR]</div>
+        <h3 class="card-title"><span class="checkbox"></span>Coreless Brushed Motors</h3>
+        <div class="card-details">
+            <span>Qty: 4</span>
+            <span>Unit: ৳120</span>
+        </div>
+        <div class="card-total">
+            <span>Total</span>
+            <span>৳480</span>
+        </div>
+        <div class="card-notes">💡 (e.g., 716 or 8520 size coreless motors)</div>
+    </div>
+    
+    <div class="card">
+        <div class="card-tag">[PROPELLER]</div>
+        <h3 class="card-title"><span class="checkbox"></span>Propellers</h3>
+        <div class="card-details">
+            <span>Qty: 4</span>
+            <span>Unit: ৳30</span>
+        </div>
+        <div class="card-total">
+            <span>Total</span>
+            <span>৳120</span>
+        </div>
+        <div class="card-notes">💡 (2x Clockwise [CW], 2x Counter-Clockwise [CCW])</div>
+    </div>
+    
+    <div class="card">
+        <div class="card-tag">[FRAME]</div>
+        <h3 class="card-title"><span class="checkbox"></span>Drone Frame</h3>
+        <div class="card-details">
+            <span>Qty: 1</span>
+            <span>Unit: ৳1,600</span>
+        </div>
+        <div class="card-total">
+            <span>Total</span>
+            <span>৳1,600</span>
+        </div>
+        
+    </div>
+    
+    <div class="card">
+        <div class="card-tag">[TAPE]</div>
+        <h3 class="card-title"><span class="checkbox"></span>Double Sided Tape 1 inch</h3>
+        <div class="card-details">
+            <span>Qty: 1</span>
+            <span>Unit: ৳60</span>
+        </div>
+        <div class="card-total">
+            <span>Total</span>
+            <span>৳60</span>
+        </div>
+        <div class="card-notes">💡 For mounting the MPU-6050 to absorb motor vibrations</div>
+    </div>
+    
+    <div class="card">
+        <div class="card-tag">[WIRE]</div>
+        <h3 class="card-title"><span class="checkbox"></span>Wires</h3>
+        <div class="card-details">
+            <span>Qty: 1</span>
+            <span>Unit: ৳100</span>
+        </div>
+        <div class="card-total">
+            <span>Total</span>
+            <span>৳100</span>
+        </div>
+        
+    </div>
+    
+    <div class="card">
+        <div class="card-tag">[DRIVER]</div>
+        <h3 class="card-title"><span class="checkbox"></span>Motor Drive</h3>
+        <div class="card-details">
+            <span>Qty: 1</span>
+            <span>Unit: ৳400</span>
+        </div>
+        <div class="card-total">
+            <span>Total</span>
+            <span>৳400</span>
+        </div>
+        
+    </div>
+    
+        </div>
+
+        <div class="footer">
+            Data compiled via <strong>Taka Tracker</strong> ⚡
+        </div>
+    </div>
+</body>
+</html>
